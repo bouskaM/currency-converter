@@ -1,10 +1,10 @@
 const url = "https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt"
-const proxy = "https://cors-anywhere.herokuapp.com/"
+const proxy = "https://corsproxy.io/?"
 
 /**
  * Fetches the rates data from the CNB API.
  * @returns The rates data.
- * To avoid CORS issues the request is sent through a proxy server.
+ * To avoid CORS the request is sent through a proxy server.
  */
 export const fetchRates = async () => {
     const requestUrl = `${proxy}${url}`;
