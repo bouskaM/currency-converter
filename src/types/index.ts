@@ -5,3 +5,5 @@ export interface CurrencyRate {
     code: string;
     rate: number;
 }
+
+export type CountryCodeRate = Pick<CurrencyRate, 'country' | 'code' | 'rate'>;

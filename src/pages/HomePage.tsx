@@ -1,3 +1,4 @@
+import ConverterForm from "../components/ConverterForm";
 import RatesTable from "../components/RatesTable";
 
 function HomePage() {
@@ -26,6 +27,24 @@ function HomePage() {
                         code: "GBP",
                         rate: 29.03,
                     }]} />
+
+                    <ConverterForm rates={[
+                        {
+                            country: "USA",
+                            code: "USD",
+                            rate: 22.83,
+                        },
+                        {
+                            country: "EMU",
+                            code: "EUR",
+                            rate: 24.74,
+                        },
+                        {
+                            country: "United Kingdom",
+                            code: "GBP",
+                            rate: 29.03,
+                        }
+                    ]} />
         </div>
     );
 }
