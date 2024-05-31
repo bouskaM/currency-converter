@@ -6,7 +6,7 @@ To run project locally:
 npm install
 npm run dev
 ```
-Also follow insktruction on https://github.com/bouskaM/currency-proxy-server for local server.
+Also follow instructions at https://github.com/bouskaM/currency-proxy-server for local server.
 
 To run tests (project must be running):
 ``` 
