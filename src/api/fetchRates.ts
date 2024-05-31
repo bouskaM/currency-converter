@@ -1,14 +1,11 @@
-const url = "https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt"
-const proxy = "https://corsproxy.io/?"
-
-/**
- * Fetches the rates data from the CNB API.
- * @returns The rates data.
- * To avoid CORS the request is sent through a proxy server.
+/** 
+ * PROXY server https://github.com/bouskaM/currency-proxy-server is used to avoid CORS issues.
+ * The server is deployed on Vercel - > https://currency-proxy-server.vercel.app
  */
+const url = "https://currency-proxy-server.vercel.app/api/daily-rates"
 export const fetchRates = async () => {
-    const requestUrl = `${proxy}${url}`;
-    const response = await fetch(requestUrl);
+    const requestUrl = url;
+    const response = await fetch(requestUrl)
     const text = await response.text();
     return text;
 }
