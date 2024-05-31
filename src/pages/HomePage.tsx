@@ -1,52 +1,55 @@
+import { parseRates } from "../utils/ratesParser";
+import { useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
+import { fetchRates } from "../api/fetchRates";
 import ConverterForm from "../components/ConverterForm";
 import RatesTable from "../components/RatesTable";
 
-function HomePage() {
-    return (
-        <div>
-            <RatesTable rates={
-                [
-                    {
-                        country: "USA",
-                        currency: "Dollar",
-                        amount: 1,
-                        code: "USD",
-                        rate: 22.83,
-                    },
-                    {
-                        country: "EMU",
-                        currency: "Euro",
-                        amount: 1,
-                        code: "EUR",
-                        rate: 24.74,
-                    },
-                    {
-                        country: "United Kingdom",
-                        currency: "Pound",
-                        amount: 0.72,
-                        code: "GBP",
-                        rate: 29.03,
-                    }]} />
+const ContentWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+`;
 
-                    <ConverterForm rates={[
-                        {
-                            country: "USA",
-                            code: "USD",
-                            rate: 22.83,
-                        },
-                        {
-                            country: "EMU",
-                            code: "EUR",
-                            rate: 24.74,
-                        },
-                        {
-                            country: "United Kingdom",
-                            code: "GBP",
-                            rate: 29.03,
-                        }
-                    ]} />
-        </div>
+const Heading = styled.h1`
+    font-size: 3.2em;
+    line-height: 1.1;
+`
+
+function HomePage() {
+
+    const { data, isLoading, error } = useQuery({
+        queryFn: () => fetchRates(),
+        queryKey: ["rates"],
+    })
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>
+    }
+
+    if (!data) {
+        return <p>Failed to fetch rates</p>
+    }
+
+    const [rates, date] = parseRates(data);
+
+    return (
+        <>
+            <Heading>Currency converter</Heading>
+            <ContentWrapper>
+                <div>
+                    <h2>Rates for {date.toLocaleDateString()}</h2>
+                    <RatesTable rates={rates} />
+                </div>
+                <ConverterForm rates={rates} />
+            </ContentWrapper>
+        </>
     );
 }
 
-export default HomePage;
+export default HomePage
