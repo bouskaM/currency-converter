@@ -37,13 +37,14 @@ function HomePage() {
     }
 
     const [rates, date] = parseRates(data);
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     return (
         <>
             <Heading data-cy="main-heading">Currency converter</Heading>
             <ContentWrapper>
                 <div>
-                    <h2 data-cy="table-title">Rates for {date.toLocaleDateString()}</h2>
+                    <h2 data-cy="table-title">Rates for {formattedDate}</h2>
                     <RatesTable rates={rates} />
                 </div>
                 <ConverterForm rates={rates} />
