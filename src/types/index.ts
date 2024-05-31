@@ -6,4 +6,4 @@ export interface CurrencyRate {
     rate: number;
 }
 
-export type CountryCodeRate = Pick<CurrencyRate, 'country' | 'code' | 'rate'>;
+export type CountryCodeRateAmount = Pick<CurrencyRate, 'country' | 'code' | 'rate' | 'amount'>;

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { CountryCodeRate } from '../types';
+import { CountryCodeRateAmount } from '../types';
 import CurrencySelect from './CurrencySelect';
 
 interface ConverterFormProps {
-    rates: CountryCodeRate[]
+    rates: CountryCodeRateAmount[]
 }
 
 const ConvertorWrapper = styled.div`
@@ -33,13 +33,14 @@ function ConverterForm({ rates }: ConverterFormProps) {
     const [number, setNumber] = useState<number>(100);
     const [selectedCode, setSelectedCode] = useState<string>(rates[0].code);
     const [selectedRate, setSelectedRate] = useState<number>(rates[0].rate);
+    const [selectedAmount, setSelectedAmount] = useState<number>(rates[0].amount);
     const [convertedValue, setConvertedValue] = useState<string>('0.00');
 
     useEffect(() => {
-        const convertedValue = (number / selectedRate).toFixed(2);
+        const convertedValue = (number / (selectedRate / selectedAmount)).toFixed(3);
         setConvertedValue(convertedValue);
     }, [number, selectedRate]);
-    
+
     const handleNumberChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value);
         if (!isNaN(value) && value >= 0) {
@@ -47,9 +48,10 @@ function ConverterForm({ rates }: ConverterFormProps) {
         }
     }, []);
 
-    const handleCurrencyChange = useCallback((currency: string, rate: number) => {
+    const handleCurrencyChange = useCallback((currency: string, rate: number, amount: number) => {
         setSelectedCode(currency);
         setSelectedRate(rate);
+        setSelectedAmount(amount);
     }, []);
 
 

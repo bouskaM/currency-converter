@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { CountryCodeRate } from '../types';
+import { CountryCodeRateAmount } from '../types';
 
 interface CurrencySelectProps {
-    options: CountryCodeRate[];
-    onCodeChange: (currency: string, rate: number) => void;
+    options: CountryCodeRateAmount[];
+    onCodeChange: (currency: string, rate: number, amount: number) => void;
 }
 
 const Select = styled.select`
@@ -26,7 +26,7 @@ function CurrencySelect({ options, onCodeChange }: CurrencySelectProps) {
         const selectedCode = event.target.value;
         const selectedOption = options.find(option => option.code === selectedCode);
         if (selectedOption) {
-            onCodeChange(selectedOption.code, selectedOption.rate);
+            onCodeChange(selectedOption.code, selectedOption.rate, selectedOption.amount);
         }
     }, [options, onCodeChange]);
 
