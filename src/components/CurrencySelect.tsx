@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { CountryCodeRate } from '../types';
 
@@ -20,23 +20,25 @@ const Select = styled.select`
     margin-left: 8px;
 `;
 
-export default function CurrencySelect({ options, onCodeChange }: CurrencySelectProps) {
+function CurrencySelect({ options, onCodeChange }: CurrencySelectProps) {
 
-    const handleChange = ((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedCode = event.target.value;
         const selectedOption = options.find(option => option.code === selectedCode);
         if (selectedOption) {
             onCodeChange(selectedOption.code, selectedOption.rate);
         }
-    });
+    }, [options, onCodeChange]);
 
     return (
         <Select onChange={handleChange}>
             {options.map(({ country, code }) => (
-                <option key={`${code}+${country}`} value={code}>
+                <option key={code} value={code}>
                     {country} ({code})
                 </option>
             ))}
         </Select>
     );
 };
+
+export default CurrencySelect;

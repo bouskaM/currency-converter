@@ -24,7 +24,7 @@ interface RatesTableProps {
     rates: CurrencyRate[],
 }
 
-export default function RatesTable({ rates }: RatesTableProps) {
+function RatesTable({ rates }: RatesTableProps) {
     return (
         <TableWrapper>
             <table>
@@ -52,3 +52,5 @@ export default function RatesTable({ rates }: RatesTableProps) {
         </TableWrapper>
     );
 }
+
+export default RatesTable

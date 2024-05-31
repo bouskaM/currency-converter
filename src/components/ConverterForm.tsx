@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CountryCodeRate } from '../types';
 import CurrencySelect from './CurrencySelect';
@@ -6,6 +6,14 @@ import CurrencySelect from './CurrencySelect';
 interface ConverterFormProps {
     rates: CountryCodeRate[]
 }
+
+const ConvertorWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+`;
 
 const StyledInput = styled.input`
     padding: 5px;
@@ -21,7 +29,7 @@ const StyledInput = styled.input`
     width: 100px;
 `;
 
-export default function ConverterForm({ rates }: ConverterFormProps) {
+function ConverterForm({ rates }: ConverterFormProps) {
     const [number, setNumber] = useState<number>(100);
     const [selectedCode, setSelectedCode] = useState<string>(rates[0].code);
     const [selectedRate, setSelectedRate] = useState<number>(rates[0].rate);
@@ -31,44 +39,32 @@ export default function ConverterForm({ rates }: ConverterFormProps) {
         const convertedValue = (number / selectedRate).toFixed(2);
         setConvertedValue(convertedValue);
     }, [number, selectedRate]);
-
-    const handleNumberChange = ((event: React.ChangeEvent<HTMLInputElement>) => {
+    
+    const handleNumberChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value);
         if (!isNaN(value) && value >= 0) {
             setNumber(value);
         }
-    });
+    }, []);
 
-    const handleCurrencyChange = ((currency: string, rate: number) => {
+    const handleCurrencyChange = useCallback((currency: string, rate: number) => {
         setSelectedCode(currency);
         setSelectedRate(rate);
-    });
+    }, []);
 
 
     return (
-        <>
-            <StyledInput type='number' onChange={handleNumberChange} defaultValue={number} />
-            <label>CZK to</label>
-            <CurrencySelect onCodeChange={handleCurrencyChange} options={
-                [{
-                    country: "USA",
-                    code: "USD",
-                    rate: 22.83
-                },
-                {
-                    country: "EMU",
-                    code: "EUR",
-                    rate: 24.74
-                },
-                {
-                    country: "United Kingdom",
-                    code: "GBP",
-                    rate: 29.03
+        <ConvertorWrapper>
+            <div>
+                <h2>Convert</h2>
+                <StyledInput type='number' onChange={handleNumberChange} defaultValue={number} />
+                <label>CZK to</label>
+                <CurrencySelect onCodeChange={handleCurrencyChange} options={rates} />
+            </div>
 
-                }]
-            } />
-
-            <h2>{convertedValue} {selectedCode}</h2>
-        </>
+            <h2>= {convertedValue} {selectedCode}</h2>
+        </ConvertorWrapper>
     );
 };
+
+export default ConverterForm;
