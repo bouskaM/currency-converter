@@ -40,10 +40,10 @@ function HomePage() {
 
     return (
         <>
-            <Heading>Currency converter</Heading>
+            <Heading data-cy="main-heading">Currency converter</Heading>
             <ContentWrapper>
                 <div>
-                    <h2>Rates for {date.toLocaleDateString()}</h2>
+                    <h2 data-cy="table-title">Rates for {date.toLocaleDateString()}</h2>
                     <RatesTable rates={rates} />
                 </div>
                 <ConverterForm rates={rates} />

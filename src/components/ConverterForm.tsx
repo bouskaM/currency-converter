@@ -56,13 +56,13 @@ function ConverterForm({ rates }: ConverterFormProps) {
     return (
         <ConvertorWrapper>
             <div>
-                <h2>Convert</h2>
-                <StyledInput type='number' onChange={handleNumberChange} defaultValue={number} />
-                <label>CZK to</label>
+                <h2 data-cy="convert-title">Convert</h2>
+                <StyledInput data-cy="amount-input" type='number' onChange={handleNumberChange} defaultValue={number} />
+                <label data-cy="from-to-label">CZK to</label>
                 <CurrencySelect onCodeChange={handleCurrencyChange} options={rates} />
             </div>
 
-            <h2>= {convertedValue} {selectedCode}</h2>
+            <h2 data-cy="result">= {convertedValue} {selectedCode}</h2>
         </ConvertorWrapper>
     );
 };

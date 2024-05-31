@@ -6,3 +6,11 @@ To run project locally:
 npm install
 npm run dev
 ```
+Also follow insktruction on https://github.com/bouskaM/currency-proxy-server for local server.
+
+To run tests (project must be running):
+``` 
+npx cypress run (headless)
+or
+npx cypress open
+```

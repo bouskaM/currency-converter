@@ -1,0 +1,5 @@
+29 May 2024 #103
+Country|Currency|Amount|Code|Rate
+Australia|dollar|1|AUD|15.105
+Brazil|real|1|BRL|4.401
+Bulgaria|lev|1|BGN|12.641

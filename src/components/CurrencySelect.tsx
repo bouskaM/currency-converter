@@ -31,7 +31,7 @@ function CurrencySelect({ options, onCodeChange }: CurrencySelectProps) {
     }, [options, onCodeChange]);
 
     return (
-        <Select onChange={handleChange}>
+        <Select data-cy="currency-select" onChange={handleChange}>
             {options.map(({ country, code }) => (
                 <option key={code} value={code}>
                     {country} ({code})
